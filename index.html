@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Draw — Gesture-Based Doodler</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <video id="input_video" autoplay playsinline></video>
+    <canvas id="output_canvas"></canvas>
+
+    <div id="ui-container">
+        
+        <div id="status-bar">
+            <span id="gesture-icon">✊</span>
+            <span id="status-text">Initializing hand tracking...</span>
+        </div>
+
+        <div class="panel" id="controls">
+            <div class="header">Air Draw</div>
+            
+            <label>Colors</label>
+            <div id="color-palette">
+                <button class="color-btn active" style="background: #00FF00; box-shadow: 0 0 10px #00FF00;" data-color="#00FF00"></button>
+                <button class="color-btn" style="background: #FF00FF;" data-color="#FF00FF"></button>
+                <button class="color-btn" style="background: #00FFFF;" data-color="#00FFFF"></button>
+                <button class="color-btn" style="background: #FFFF00;" data-color="#FFFF00"></button>
+                <button class="color-btn" style="background: #FF0000;" data-color="#FF0000"></button>
+                <button class="color-btn" style="background: #FFFFFF;" data-color="#FFFFFF"></button>
+            </div>
+            
+            <div class="slider-group">
+                <label>Thickness <span id="thick-val">6px</span></label>
+                <input type="range" id="thickness-slider" min="2" max="30" value="6">
+            </div>
+            
+            <div class="slider-group">
+                <label>Glow <span id="glow-val">60%</span></label>
+                <input type="range" id="glow-slider" min="0" max="100" value="60">
+            </div>
+            
+            <div class="toggle-box">
+                <label for="camera-toggle" style="margin-top: 0;">Camera ON</label>
+                <input type="checkbox" id="camera-toggle" checked>
+            </div>
+            
+            <button id="clear-btn">Clear Canvas</button>
+        </div>
+
+        <div class="panel" id="instructions">
+            <div class="header">How to Play</div>
+            <ul>
+                <li>
+                    <span class="emoji">☝️</span>
+                    <div class="text-block">
+                        <strong>Draw</strong>
+                        <span class="subtext">Point index finger to draw</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="emoji">✋</span>
+                    <div class="text-block">
+                        <strong>Erase</strong>
+                        <span class="subtext">Sweep open palm to erase</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="emoji">🤏</span>
+                    <div class="text-block">
+                        <strong>Move</strong>
+                        <span class="subtext">Pinch to grab & reposition</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="emoji">✊</span>
+                    <div class="text-block">
+                        <strong>Idle</strong>
+                        <span class="subtext">Close fist to rest</span>
+                    </div>
+                </li>
+            </ul>
+            <div id="lets-go">Let's Go!</div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
